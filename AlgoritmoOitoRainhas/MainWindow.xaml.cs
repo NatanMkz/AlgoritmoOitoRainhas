@@ -64,7 +64,7 @@ namespace AlgoritmoOitoRainhas
             gridBoard.Children.Clear();
             gridBoard.RowDefinitions.Clear();
             gridBoard.ColumnDefinitions.Clear();
-
+            txtGeracao.Text = Genetic.Geracao.ToString();
             for (int i = 0; i < Genetic.TamTabuleiro; i++)
             {
                 gridBoard.RowDefinitions.Add(new RowDefinition());
@@ -73,38 +73,47 @@ namespace AlgoritmoOitoRainhas
             List<Border> lista = new List<Border>();
             List<TextBlock> txtBlocks = new List<TextBlock>();
             int count = 0;
-            for (int row = 0; row < Genetic.TamTabuleiro; row++)
+
+
+
+            int[,] tabuleirofinal = new int[Genetic.TamTabuleiro, Genetic.TamTabuleiro];
+
+
+            for (int i = 0; i < Genetic.TamTabuleiro; i++)
             {
-                for (int i = 0; i < TamTabuleiro; i++)
+                for (int j = 0; j < Genetic.TamTabuleiro; j++)
+                {
+                    tabuleirofinal[i, j] = 0;
+                }
+            }
+
+
+            for (int i = 0; i < Genetic.TamTabuleiro; i++)
+            {
+                int linha = Genetic.populacao[index, i] - 1;
+                tabuleirofinal[linha, i] = 1;
+            }
+
+
+            for (int i = 0; i < Genetic.TamTabuleiro; i++)
+            {
+                for (int j = 0; j < Genetic.TamTabuleiro; j++)
                 {
                     count++;
                     var border = new Border();
-                    border.SetValue(Grid.RowProperty, row);
-                    border.SetValue(Grid.ColumnProperty, i);
+                    border.SetValue(Grid.RowProperty, i);
+                    border.SetValue(Grid.ColumnProperty, j);
                     var textBlock = new TextBlock();
-                    textBlock.Text = (Genetic.populacao[index, i] == 1) ? "♛" : string.Empty;
+                    textBlock.Text = (tabuleirofinal[i, j] == 1) ? "♛" : string.Empty;
                     textBlock.FontSize = 24;
                     string id = $"Id{count.ToString()}";
                     textBlock.Name = id;
                     txtBlocks.Add(textBlock);
                     border.Name = id;
-                    //border.Child = textBlock;
+                    border.Child = textBlock;
                     lista.Add(border);
                     gridBoard.Children.Add(border);
                 }
-            }
-
-            for (int i = 1; i < gridBoard.Children.Count; i++)
-            {
-                string id = $"Id{i.ToString()}";
-                var borda = lista.Where(x => x.Name == id).FirstOrDefault();
-                TextBlock textblock = txtBlocks.Where(x => x.Name == id).FirstOrDefault();
-                if (borda != null && textblock != null)
-                {
-                    borda.Child = textblock;
-
-                }
-
             }
 
             gridBoard.Visibility = Visibility.Visible;

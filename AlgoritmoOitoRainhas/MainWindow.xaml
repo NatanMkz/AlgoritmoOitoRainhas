@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AlgoritmoOitoRainhas"
         mc:Ignorable="d"
         Background="#2c5c4a"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="600" Width="600">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -17,12 +17,14 @@
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="Tamanho do Tabuleiro (N x N):" Margin="10" Foreground="White" FontSize="14"/>
             <TextBox x:Name="txtTamTabuleiro" Grid.Row="1" Margin="5" Width="40" Foreground="Black" FontSize="16" FontWeight="Bold" />
-            <TextBlock Text="x" Margin="10" Foreground="White" FontSize="14"/>
+            <TextBlock Text="População Inicial:" Margin="10" Foreground="White" FontSize="14"/>
             <TextBox x:Name="txtTamPopulacao" Grid.Row="1" Margin="5" Width="40" Foreground="Black" FontSize="16" FontWeight="Bold" />
+            <TextBlock Text="Geração:" Margin="10" Foreground="White" FontSize="14"/>
+            <TextBox x:Name="txtGeracao" Grid.Row="1" Margin="5" Width="40" Foreground="Black" FontSize="16" FontWeight="Bold" IsReadOnly="True" />
 
         </StackPanel>
 
-        <TextBox x:Name="txtBoardSize" Grid.Row="1" Margin="10" Foreground="Black" FontSize="16" FontWeight="Bold" />
+        <TextBox x:Name="txtBoardSize" Grid.Row="1" Margin="10" Foreground="Black" FontSize="16" FontWeight="Bold"  IsReadOnly="True"/>
 
         <Button Content="Resolver" Grid.Row="2" Margin="10" Click="btnSolve_Click" Foreground="black" FontSize="16" FontWeight="Bold"/>
 

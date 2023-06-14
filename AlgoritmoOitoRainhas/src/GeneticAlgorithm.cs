@@ -38,7 +38,7 @@ namespace AlgoritmoOitoRainhas.src
 
             do
             {
-                List<int> fitnessList = new();
+                List<int> fitnessList = new List<int>();
 
                 for (int i = 0; i < TamPopulacao; i++)
                 {
@@ -84,8 +84,8 @@ namespace AlgoritmoOitoRainhas.src
                     pai2 = this.SelecionaPais(fitnessList, somaFitness);
                 } while (pai1 == pai2);
 
-                List<int> filho1 = new();
-                List<int> filho2 = new();
+                List<int> filho1 = new List<int>();
+                List<int> filho2 = new List<int>();
 
                 for (int j = 0; j < linhaCorte; j++)
                 {
