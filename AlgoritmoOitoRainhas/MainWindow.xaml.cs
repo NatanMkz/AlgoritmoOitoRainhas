@@ -26,7 +26,12 @@ namespace AlgoritmoOitoRainhas
         public MainWindow()
         {
             InitializeComponent();
-            placeQueen = new PlaceQueen();
+            //placeQueen = new PlaceQueen();
+
+            GeneticAlgorithm gen = new GeneticAlgorithm(7, 10);
+            int index = gen.ResolveRainhas();
+
+
         }
 
         private void btnSolve_Click(object sender, RoutedEventArgs e)
