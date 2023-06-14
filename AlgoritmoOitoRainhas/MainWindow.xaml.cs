@@ -21,26 +21,30 @@ namespace AlgoritmoOitoRainhas
     /// </summary>
     public partial class MainWindow : Window
     {
-                   
+        public GeneticAlgorithm Genetic;
         public PlaceQueen placeQueen;
+        int TamTabuleiro;
+        int TamPopulacao;
+        int index = 0;
         public MainWindow()
         {
             InitializeComponent();
             //placeQueen = new PlaceQueen();
-
-            GeneticAlgorithm gen = new GeneticAlgorithm(7, 10);
-            int index = gen.ResolveRainhas();
+            //GeneticAlgorithm gen = new GeneticAlgorithm(7, 10);
+            //int index = gen.ResolveRainhas();
 
 
         }
 
         private void btnSolve_Click(object sender, RoutedEventArgs e)
         {
-            if (int.TryParse(txtBoardSize.Text, out placeQueen.boardSize))
+            if (int.TryParse(txtTamTabuleiro.Text, out TamTabuleiro) && int.TryParse(txtTamPopulacao.Text, out TamPopulacao))
             {
-                if (placeQueen.boardSize >= 4)
+                Genetic = new GeneticAlgorithm(TamTabuleiro, TamPopulacao);
+                if (Genetic.TamTabuleiro >= 4)
                 {
-                    placeQueen.SolveNQueens();
+                    //placeQueen.SolveNQueens();
+                    index = Genetic.ResolveRainhas();
                     DrawBoard();
                 }
                 else
@@ -53,7 +57,7 @@ namespace AlgoritmoOitoRainhas
                 MessageBox.Show("Digite um número válido para o tamanho do tabuleiro.", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        
+
 
         private void DrawBoard()
         {
@@ -61,27 +65,46 @@ namespace AlgoritmoOitoRainhas
             gridBoard.RowDefinitions.Clear();
             gridBoard.ColumnDefinitions.Clear();
 
-            for (int i = 0; i < placeQueen.boardSize; i++)
+            for (int i = 0; i < Genetic.TamTabuleiro; i++)
             {
                 gridBoard.RowDefinitions.Add(new RowDefinition());
                 gridBoard.ColumnDefinitions.Add(new ColumnDefinition());
             }
-
-            for (int row = 0; row < placeQueen.boardSize; row++)
+            List<Border> lista = new List<Border>();
+            List<TextBlock> txtBlocks = new List<TextBlock>();
+            int count = 0;
+            for (int row = 0; row < Genetic.TamTabuleiro; row++)
             {
-                for (int col = 0; col < placeQueen.boardSize; col++)
+                for (int i = 0; i < TamTabuleiro; i++)
                 {
+                    count++;
                     var border = new Border();
                     border.SetValue(Grid.RowProperty, row);
-                    border.SetValue(Grid.ColumnProperty, col);
-
+                    border.SetValue(Grid.ColumnProperty, i);
                     var textBlock = new TextBlock();
-                    textBlock.Text = (placeQueen.board[row, col] == 1) ? "♛" : string.Empty;
+                    textBlock.Text = (Genetic.populacao[index, i] == 1) ? "♛" : string.Empty;
                     textBlock.FontSize = 24;
-
-                    border.Child = textBlock;
+                    string id = $"Id{count.ToString()}";
+                    textBlock.Name = id;
+                    txtBlocks.Add(textBlock);
+                    border.Name = id;
+                    //border.Child = textBlock;
+                    lista.Add(border);
                     gridBoard.Children.Add(border);
                 }
+            }
+
+            for (int i = 1; i < gridBoard.Children.Count; i++)
+            {
+                string id = $"Id{i.ToString()}";
+                var borda = lista.Where(x => x.Name == id).FirstOrDefault();
+                TextBlock textblock = txtBlocks.Where(x => x.Name == id).FirstOrDefault();
+                if (borda != null && textblock != null)
+                {
+                    borda.Child = textblock;
+
+                }
+
             }
 
             gridBoard.Visibility = Visibility.Visible;

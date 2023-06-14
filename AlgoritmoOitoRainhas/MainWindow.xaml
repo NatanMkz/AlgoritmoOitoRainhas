@@ -14,7 +14,13 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Tamanho do Tabuleiro (N x N):" Margin="10" Foreground="White" FontSize="14"/>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Tamanho do Tabuleiro (N x N):" Margin="10" Foreground="White" FontSize="14"/>
+            <TextBox x:Name="txtTamTabuleiro" Grid.Row="1" Margin="5" Width="40" Foreground="Black" FontSize="16" FontWeight="Bold" />
+            <TextBlock Text="x" Margin="10" Foreground="White" FontSize="14"/>
+            <TextBox x:Name="txtTamPopulacao" Grid.Row="1" Margin="5" Width="40" Foreground="Black" FontSize="16" FontWeight="Bold" />
+
+        </StackPanel>
 
         <TextBox x:Name="txtBoardSize" Grid.Row="1" Margin="10" Foreground="Black" FontSize="16" FontWeight="Bold" />
 
